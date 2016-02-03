@@ -409,6 +409,23 @@ describe('bpmn-moddle - roundtrip', function() {
       });
     });
 
+
+    it('nested elements no namespace prefix', function(done) {
+
+      // given
+      fromFile('test/fixtures/bpmn/nested-no-namespace-prefix.bpmn', function(err, result) {
+
+        if (err) {
+          return done(err);
+        }
+
+        // when
+        toXML(result, { format: true }, function(err, xml) {
+          validate(err, xml, done);
+        });
+      });
+    });
+
   });
 
 
