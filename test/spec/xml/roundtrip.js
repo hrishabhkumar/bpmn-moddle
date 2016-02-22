@@ -464,6 +464,35 @@ describe('bpmn-moddle - roundtrip', function() {
 
     });
 
+
+    describe('bizagi', function() {
+
+      it('event definitions', function(done) {
+
+        // given
+        fromFile('test/fixtures/bpmn/nested-ns-definition-bizagi.bpmn', function(err, result, context) {
+
+          if (err) {
+            return done(err);
+          }
+
+          var warningsStr = context.warnings.map(function(w) {
+            return '\n\t- ' + w.message;
+          }).join('');
+
+          if (warningsStr) {
+            return done(new Error('import warnings: ' + warningsStr));
+          }
+
+          // when
+          toXML(result, { format: true }, function(err, xml) {
+            validate(err, xml, done);
+          });
+        });
+      });
+
+    });
+
   });
 
 });
