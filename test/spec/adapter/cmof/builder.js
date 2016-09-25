@@ -1,12 +1,18 @@
 'use strict';
 
-var _ = require('lodash'),
-    fs = require('fs'),
-    path = require('path');
+import {
+  isFunction,
+  assign,
+  find,
+  forEach
+} from 'lodash-es';
 
-var CmofParser = require('cmof-parser');
+import { writeFileSync } from 'fs';
+import { dirname } from 'path';
 
-var Helper = require('../../../helper');
+import { ensureDirExists } from '../../../helper';
+
+import CmofParser from 'cmof-parser';
 
 
 function Builder() {
@@ -23,7 +29,7 @@ function Builder() {
   }
 
   function findProperty(properties, name) {
-    var property = _.find(properties, function(d) {
+    var property = find(properties, function(d) {
       return d.name === name;
     });
 
@@ -38,7 +44,7 @@ function Builder() {
 
     var last;
 
-    _.forEach(propertyNames, function(name) {
+    forEach(propertyNames, function(name) {
 
       var descriptor = findProperty(properties, name);
 
@@ -65,7 +71,7 @@ function Builder() {
     var props = desc.properties;
 
     function findProperty(name) {
-      return _.find(props, function(d) {
+      return find(props, function(d) {
         return d.name === name;
       });
     }
@@ -86,11 +92,11 @@ function Builder() {
 
     var str = JSON.stringify(pkg, null, '  ');
 
-    _.forEach(hooks.preSerialize, function(fn) {
+    forEach(hooks.preSerialize, function(fn) {
       str = fn(str);
     });
 
-    fs.writeFileSync(file, str);
+    writeFileSync(file, str);
   }
 
   function preSerialize(fn) {
@@ -116,7 +122,7 @@ function Builder() {
     }
 
     if (elementParts[1]) {
-      var property = _.find(element.properties, function(p) {
+      var property = find(element.properties, function(p) {
         return p.name === elementParts[1];
       });
 
@@ -124,16 +130,16 @@ function Builder() {
         throw new Error('[transform] property <' + elementParts[0] + '#' + elementParts[1] + '> does not exist');
       }
 
-      if (_.isFunction(extension)) {
+      if (isFunction(extension)) {
         extension.call(element, property);
       } else {
-        _.extend(property, extension);
+        assign(property, extension);
       }
     } else {
-      if (_.isFunction(extension)) {
+      if (isFunction(extension)) {
         extension.call(element, element);
       } else {
-        _.extend(element, extension);
+        assign(element, extension);
       }
     }
   }
@@ -175,8 +181,7 @@ function Builder() {
   }
 
   function write(dest) {
-    var dir = path.dirname(dest);
-    Helper.ensureDirExists(dir);
+    ensureDirExists(dirname(dest));
   }
 
   this.parse = parse;

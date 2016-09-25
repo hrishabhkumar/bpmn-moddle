@@ -1,17 +1,15 @@
 'use strict';
 
-var XMLHelper = require('../../xml-helper'),
-    Helper = require('../../helper');
-
-var toXML = XMLHelper.toXML;
+import { fromFile, toXML } from '../../xml-helper';
+import { createModdle } from '../../helper';
 
 
 describe('bpmn-moddle - edit', function() {
 
-  var moddle = Helper.createModdle();
+  var moddle = createModdle();
 
-  function fromFile(file, done) {
-    XMLHelper.fromFile(moddle, file, done);
+  function importFile(file, done) {
+    fromFile(moddle, file, done);
   }
 
 
@@ -20,7 +18,7 @@ describe('bpmn-moddle - edit', function() {
     it('should serialize changed name', function(done) {
 
       // given
-      fromFile('test/fixtures/bpmn/simple.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/simple.bpmn', function(err, result) {
 
         if (err) {
           return done(err);
@@ -45,7 +43,7 @@ describe('bpmn-moddle - edit', function() {
 
     it('should update', function(done) {
 
-      fromFile('test/fixtures/bpmn/data-object-reference.bpmn', function(err, result) {
+      importFile('test/fixtures/bpmn/data-object-reference.bpmn', function(err, result) {
 
         // given
         var process = result.rootElements[0],
@@ -71,6 +69,9 @@ describe('bpmn-moddle - edit', function() {
         });
 
       });
+
     });
+
   });
+
 });

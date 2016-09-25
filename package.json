@@ -7,6 +7,7 @@
     "dev": "grunt auto-test",
     "test": "grunt test"
   },
+  "main": "lib/simple.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/bpmn-io/bpmn-moddle"
@@ -29,20 +30,23 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "babel-register": "^6.14.0",
     "chai": "^1.9.1",
     "cmof-parser": "^0.1.0",
     "grunt": "^0.4.2",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-jshint": "^0.7.2",
     "grunt-contrib-watch": "^0.5.0",
-    "grunt-mocha-test": "^0.11.0",
+    "grunt-mocha-test": "^0.13.2",
     "grunt-release": "^0.7.0",
     "jsondiffpatch": "^0.1.4",
     "load-grunt-tasks": "^0.3.0",
-    "xsd-schema-validator": "^0.3.0"
+    "xsd-schema-validator": "^0.3.0",
+    "mocha": "^3.0.2"
   },
   "dependencies": {
-    "lodash": "^3.0.0",
+    "lodash-es": "^4.16.0",
     "moddle": "^0.8.0",
     "moddle-xml": "^0.12.0"
   }

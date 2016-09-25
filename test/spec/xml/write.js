@@ -1,15 +1,16 @@
 'use strict';
 
-var assign = require('lodash/object/assign'),
-    isFunction = require('lodash/lang/isFunction');
+import {
+  assign,
+  isFunction
+} from 'lodash-es';
 
-var Helper = require('../../helper');
-
+import { createModdle } from '../../helper';
 
 
 describe('bpmn-moddle - write', function() {
 
-  var moddle = Helper.createModdle();
+  var moddle = createModdle();
 
 
   function write(element, options, callback) {

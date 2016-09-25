@@ -1,10 +1,8 @@
 'use strict';
 
-var os = require('os');
+import { createModdle, readFile } from '../../helper';
 
-var Helper = require('../../helper');
-
-var camundaPackage = require('../../fixtures/json/model/camunda');
+import camundaPackage from '../../fixtures/json/model/camunda';
 
 
 describe('bpmn-moddle - integration', function() {
@@ -13,14 +11,14 @@ describe('bpmn-moddle - integration', function() {
 
     describe('read', function() {
 
-      var moddle = Helper.createModdle({ camunda: camundaPackage });
+      var moddle = createModdle({ camunda: camundaPackage });
 
       function read(xml, root, opts, callback) {
         return moddle.fromXML(xml, root, opts, callback);
       }
 
-      function fromFile(file, root, opts, callback) {
-        var contents = Helper.readFile('test/fixtures/bpmn/' + file);
+      function importFile(file, root, opts, callback) {
+        var contents = readFile('test/fixtures/bpmn/' + file);
         return read(contents, root, opts, callback);
       }
 
@@ -32,7 +30,7 @@ describe('bpmn-moddle - integration', function() {
           // given
 
           // when
-          fromFile('extension/camunda/inputOutput-list.part.bpmn', 'camunda:InputOutput', function(err, result) {
+          importFile('extension/camunda/inputOutput-list.part.bpmn', 'camunda:InputOutput', function(err, result) {
 
             var expected = {
               $type: 'camunda:InputOutput',
@@ -65,7 +63,7 @@ describe('bpmn-moddle - integration', function() {
           // given
 
           // when
-          fromFile('extension/camunda/inputOutput-map.part.bpmn', 'camunda:InputOutput', function(err, result) {
+          importFile('extension/camunda/inputOutput-map.part.bpmn', 'camunda:InputOutput', function(err, result) {
 
             var expected = {
               $type: 'camunda:InputOutput',
@@ -110,7 +108,7 @@ describe('bpmn-moddle - integration', function() {
         it('InputOutput - mixed', function(done) {
 
           // when
-          fromFile('extension/camunda/inputOutput-mixed.part.bpmn', 'camunda:InputOutput', function(err, result) {
+          importFile('extension/camunda/inputOutput-mixed.part.bpmn', 'camunda:InputOutput', function(err, result) {
 
             var expected = {
               $type: 'camunda:InputOutput',
@@ -146,7 +144,7 @@ describe('bpmn-moddle - integration', function() {
           // given
 
           // when
-          fromFile('extension/camunda/inputOutput-plain.part.bpmn', 'camunda:InputOutput', function(err, result) {
+          importFile('extension/camunda/inputOutput-plain.part.bpmn', 'camunda:InputOutput', function(err, result) {
 
             var expected = {
               $type: 'camunda:InputOutput',
@@ -172,7 +170,7 @@ describe('bpmn-moddle - integration', function() {
           // given
 
           // when
-          fromFile('extension/camunda/inputOutput-script.part.bpmn', 'camunda:InputOutput', function(err, result) {
+          importFile('extension/camunda/inputOutput-script.part.bpmn', 'camunda:InputOutput', function(err, result) {
 
             var expected = {
               $type: 'camunda:InputOutput',
