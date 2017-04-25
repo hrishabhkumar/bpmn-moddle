@@ -43,8 +43,8 @@
     "xsd-schema-validator": "^0.3.0"
   },
   "dependencies": {
-    "lodash": "^3.0.0",
-    "moddle": "^1.0.0",
-    "moddle-xml": "^1.0.0"
+    "lodash": "^4.17.4",
+    "moddle": "https://github.com/hrishabhkumar/moddle.git",
+    "moddle-xml": "https://github.com/hrishabhkumar/moddle-xml.git"
   }
 }
